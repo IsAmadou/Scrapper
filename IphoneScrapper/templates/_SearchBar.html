@@ -1,0 +1,64 @@
+<section class="my-4 p-3 border rounded-2">
+    <form action="" method="get">
+      {% csrf_token %}
+      <div class="row col-sx-12" style="margin: auto">
+          <div class="col-sx-8 col-md-8 text-center">
+              <h3>Tab Filter Bar</h3>
+          </div>
+          <div class="col-sx-2 col-md-2 text-center">
+               <button class="btn btn-primary" type="submit" name="action" value="Search">
+                  <i class="fa fa-search"></i>
+               </button>
+          </div>
+          <div class="col-sx-2 col-md-2 text-center">
+               <button class="btn btn-success" type="button" data-toggle="modal" data-target="#exampleModal">
+                   <i class="fa fa-envelope"></i>
+               </button>
+          </div>
+      </div>
+
+     <!-- Modal -->
+     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+         <div class="modal-content">
+           <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalLabel">Send search result to this Email</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>
+           </div>
+           <div class="modal-body">
+                <input class="form-control" type="email" placeholder="Please Enter your Email" name="email">
+           </div>
+           <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="action" value="SendMail">Send</button>
+           </div>
+         </div>
+       </div>
+      </div>
+      <!-- End Modal -->
+
+      <div class="row col-sx-12 col-md-12 g-1 align-items-center">
+         <div class="col-sx-12 col-md-3 text-center">
+             <input class="form-control" type="text" placeholder="look for... " name="title">
+         </div>
+         <div class="col-sx-12 col-md-3 text-center">
+            <select class="form-control" name="city">
+               <option value="0" disabled selected>Choose city</option>
+               {% for city in cities %}
+                  <option value="{{city}}">{{city}}</option>
+               {% endfor %}
+            </select>
+         </div>
+         <div class="col-sx-6 col-md-3 text-center">
+           <input class="form-control"  type="number" name="minPrice" step="50" min="0" placeholder="Min">
+           <input class="form-control" type="number" name="maxPrice" step="50" min="0" placeholder="Max">
+         </div>
+         <div class="col-sx-6 col-md-3 text-center">
+           <input class="form-control"  type="datetime-local" name="minDate" placeholder="Start date">
+           <input class="form-control" type="datetime-local" name="maxDate" placeholder="Max">
+         </div>
+      </div>
+    </form>
+</section>

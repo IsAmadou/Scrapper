@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+
+{% block title %}Average{% endblock title %}
+
+{% block content %}
+    <section class="my-4 p-3 border rounded-2">
+      <form action="" method="get">
+        {% csrf_token %}
+        <div class="row col-sx-12" style="margin: auto">
+          <div class="col-sx-8 col-md-8 text-center">
+            <h3>Tab Filter Bar</h3>
+          </div>
+          <div class="col-sx-3 col-md-3 text-center">
+            <select class="form-control" name="city">
+              <option value="0" disabled selected>Choose city</option>
+              {% for city in cities %}
+                 <option value="{{city}}">{{city}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-sx-1 col-md-1 text-center">
+             <button class="btn btn-primary" type="submit">
+                <i class="fa fa-search"></i>
+             </button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <div class="table-responsive">
+      <table class="table table-success table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Iphone models</th>
+            <th scope="col">Average</th>
+            <th scope="col">City</th>
+          </tr>
+        </thead>
+        {% for model, priceAvg in avg.items %}
+          <tbody>
+            <tr>
+              <td>{{model}}</td>
+              <td>{{priceAvg|floatformat:2}} DH</td>
+              <td>{{selectedCity}}</td>
+            </tr>
+          </tbody>
+        {% empty %}
+            <h4>Sorry, no smartphone has been found yet !!</h4>
+        {% endfor %}
+      </table>
+    </div>
+
+
+{% endblock content %}

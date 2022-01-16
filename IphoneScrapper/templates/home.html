@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    {% include '_SearchBar.html' %}
+
+    <div>
+      {% if phones|length != 0 %}
+        <p><strong class="text-primary">{{size}}</strong> smartphones has been found</p>
+      {% endif %}
+    </div>
+
+    <div class="table-responsive" style="max-height: 500px; overflow-y: scroll">
+      <table class="table table-success table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">City</th>
+            <th scope="col">Date</th>
+            <th scope="col">origin</th>
+          </tr>
+        </thead>
+        {% for phone in phones %}
+          <tbody>
+            <tr>
+              <td>{{phone.title|capfirst}}</td>
+              <td>{{phone.price}} DH</td>
+              <td>{{phone.city}}</td>
+              <td><time datetime="{{ phone.dateAnnonce|date:'d N Y à H:i' }}">
+                  {{ phone.dateAnnonce|date:'d N Y à H:i' }}
+              </time></td>
+              <td>{{phone.origin}}</td>
+            </tr>
+          </tbody>
+        {% empty %}
+            <h4>Sorry, no smartphone has been found yet !!</h4>
+        {% endfor %}
+      </table>
+    </div>
+
+
+    <div class="container p-4">
+       <ul class="pagination justify-content-center">
+          {% if phones.has_previous %}
+            <a class="page-link" href="?page=1">&laquo; first</a>
+            <a class="page-link" href="?page={{ phones.previous_page_number }}">previous</a>
+          {% endif %}
+
+          <span class="current" style="padding: 0 2vh 0 2vh">
+            Page {{ phones.number }} of {{ phones.paginator.num_pages }}
+          </span>
+
+          {% if phones.has_next %}
+            <a class="page-link" href="?page={{ phones.next_page_number }}">next</a>
+            <a class="page-link" href="?page={{ phones.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+       </ul>
+    </div>
+
+{% endblock content %}
